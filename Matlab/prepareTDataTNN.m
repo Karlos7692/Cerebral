@@ -1,27 +1,18 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-% Title: Raw Data Converter                                                                                    %
+% Title: Temporal Neural Network Trainging Data Manager                                                        %
 %                                                                                                              %
 % Author: Karl Nelson                                                                                          %
 % Email: <k.c.nelson7692@gmail.com>                                                                            %
 %                                                                                                              %
 % Description:                                                                                                 %
 %                                                                                                              %
-% Converts Raw Data into vectorised format for specific Neural Networks                                        %
+% Converts The Raw input data to training data specifically for a temporal Neural Network                      %
 %                                                                                                              %
-
-Parameters: 
-
-NN: A Neural Network
-Raw: Raw Data in Matrix Form
+% Parameters:                                                                                                  %
+%                                                                                                              %
+% NN: A Neural Network                                                                                         %
+% Raw: Raw Data in Matrix Form                                                                                 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-function TData = convertRaw(NN, Raw)
-      if strcmp(NN.TEMPORAL, NN.type)
-          TData = prepareTDataTNN(NN, Raw);   
-      end
-end
-
-
 
 
 function TData = prepareTDataTNN(NN, Raw)
@@ -56,4 +47,4 @@ function TData = prepareTDataTNN(NN, Raw)
           TData((i+1),fsui:end) = TData((i+1),fsui:end) + stateVec;
     end  
 
-emd
+end
