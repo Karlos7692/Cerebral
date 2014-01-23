@@ -8,6 +8,8 @@ end
 function [J, grad] = leastMeanSquare(NN, Y, X, lamda)
 %TODO Generalise for shape.    
     
+
+
     m = size(X,1);
     K = size(Y,2);
     

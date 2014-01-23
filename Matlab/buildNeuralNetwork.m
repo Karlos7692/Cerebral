@@ -15,7 +15,7 @@ function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nSt
      BINARY = 1;
      BINARYDEC = 2;
      
-     TEMPORAL = "tem";
+     TEMPORAL = 'tem';
      
      inFeats = size(RawIn, 2);
      outFeats = size(RawOut,2);

@@ -40,8 +40,8 @@ function TData = prepareTDataTNN(NN, Raw)
               
          if nZeroedState <= 0
              firstSVec = firstSVec + 1;
-         else;   
-              stateVec = [stateVec, zeros(1,nZeroedState)];
+         else   
+             stateVec = [stateVec, zeros(1,nZeroedState)];
          end
               
           TData((i+1),fsui:end) = TData((i+1),fsui:end) + stateVec;

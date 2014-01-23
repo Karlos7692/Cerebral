@@ -26,7 +26,6 @@ function [TData] = readData(filepath)
          %Dates 1st column
          %Titles 1st row
          TData = csvread(filepath);
-         TData = TData(2:end,2:end);
      end
 end
 
