@@ -22,7 +22,7 @@ function [NN, J_Hist] = gradientDescent(maxIter, NN, Y, X, alpha, mew, lambda)
         %update momentum
         prevGrad = grad;
         J_Hist = [J_Hist, J];
-        i
+        
     end
     plot(1:maxIter,J_Hist);
 end
