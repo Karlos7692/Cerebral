@@ -110,6 +110,6 @@ function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nSt
      %                Build Training Data                    %
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      
-     TrainData = prepareTDataTNN(NN,TrainData);
+     TrainData = prepareTNN(NN,TrainData);
      size(NN.weights)
 end
