@@ -1,4 +1,4 @@
-function [CVPred] = cvanalyser(NN, RawIn, CVIn, CVOut)
+function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
 %CVANALYSER Summary of this function goes here
 %   Detailed explanation goes here
     hold off;
@@ -38,8 +38,16 @@ function [CVPred] = cvanalyser(NN, RawIn, CVIn, CVOut)
     title('Actual vs Prediction, (CV Set)');
     xlabel('Prediction ($)');
     ylabel('Actual ($)');
-    scatter(CVOut
+    scatter(CVPred, CVOut);
+    lsline
+    stats = regstats(CVOut, CVPred, 'linear', {'beta', 'covb', 'yhat', 'r', 'mse', 'rsquare', 'tstat'});
+    display('CV Correlation Coef. ');
+    r = sqrt(stats.rsquare);
+    display(r);
     
-
+    
+    figure;
+    display('CV Corrections');
+    
 end
 

@@ -2,7 +2,6 @@ function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
 %CVANALYSER Summary of this function goes here
 %   Detailed explanation goes here
     hold off;
-    figure;
     cvsize = size(CVIn, 1);
     
     Total = [RawIn ; CVIn];
@@ -44,5 +43,19 @@ function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
     display('CV Correlation Coef. ');
     r = sqrt(stats.rsquare);
     display(r);
+    
+    
+    figure;
+    title('CV Corrections');
+    xlabel('CV Prediction with Corrections');
+    ylabel('Actual Value');
+    plot(1:length(CVOut), CVOut, 'r');
+    hold on
+    plot(1:length(CVOut), stats.yhat, 'b');
+     plot(1:length(CVOut), CVOut - stats.yhat, 'g');
+    display('CV LR. Correction Std. ');
+    sd = std(CVOut - stats.yhat);
+    display(sd);
+    hold off
 end
 
