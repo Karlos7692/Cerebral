@@ -6,8 +6,7 @@
 
 
 function [NN, J_Hist] = gradientDescent(maxIter, NN, Y, X, alpha, mew, lambda)
-    J_Hist = [];
-    m = size(X,1);
+    J_Hist = zeros(maxIter, 1);
     prevGrad = 0;
     for i = 1:maxIter
        
@@ -21,8 +20,7 @@ function [NN, J_Hist] = gradientDescent(maxIter, NN, Y, X, alpha, mew, lambda)
         
         %update momentum
         prevGrad = grad;
-        J_Hist = [J_Hist, J];
+        J_Hist(i) = J;
         
     end
-    plot(1:maxIter,J_Hist);
 end

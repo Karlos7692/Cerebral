@@ -1,8 +1,9 @@
 function [CVPred] = cvanalyser(NN, RawIn, CVIn, CVOut)
 %CVANALYSER Summary of this function goes here
 %   Detailed explanation goes here
-    hold off
-    cvsize = size(CV, 1);
+    hold off;
+    f1 = figure;
+    cvsize = size(CVIn, 1);
     
     Total = [RawIn ; CVIn];
     
