@@ -43,7 +43,7 @@ function TData = prepareTNN(NN, Raw)
          else   
              stateVec = [stateVec, zeros(1,nZeroedState)];
          end
-         if (fsui <= NN.shape(1))
+         if (fsui < NN.shape(1))
             TData((i+1),fsui:end) = TData((i+1),fsui:end) + stateVec;
          end
     end  

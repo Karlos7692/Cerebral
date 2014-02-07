@@ -10,7 +10,7 @@ function [NN, J_Hist] = gradientDescent(maxIter, NN, Y, X, alpha, mew, lambda)
     prevGrad = 0;
     for i = 1:maxIter
         %Neural Network maintenance: Set correct TData
-        X = maintainNN(NN,X);
+        %X = maintainNN(NN,X);
         
         [J, grad] = costFunc(NN, Y, X, lambda);
         

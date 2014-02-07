@@ -21,7 +21,7 @@ function [J, grad] = leastMeanSquare(NN, Y, X, lamda)
     A2 = [ones(m,1), Z2];
     Hx = sigmoid(A2*W2);
     
-    J =   1/(2*m) * sum(sum((Y - Hx).^2));
+    J =   1/2 * sum(sum((Y - Hx).^2));
     
     %Backprop gradient
     %delta_k = dE/dOut 

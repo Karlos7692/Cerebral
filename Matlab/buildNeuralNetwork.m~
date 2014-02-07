@@ -95,11 +95,8 @@ function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nSt
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      %                 State Unit Shape                      %
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-     if (strcmp(type, TEMPORAL))
-         state = ones(1,nStateVecs).*nInUs;
-     elseif (strcmp(type,SRN))
-         state = ones(1,nStateVecs).*nHUs;
-     end
+     state = ones(1,nStateVecs).*nInUs;
+     
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      %                Neural Network Seeding                 %
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -5,7 +5,7 @@
 
 
 function Out = predict(NN, Input)
-    %TODO Put in general form and remove unecessary transpositions.
+
     
     Theta1 = reshapeWeights(NN,1)';
     Theta2 = reshapeWeights(NN,2)';
