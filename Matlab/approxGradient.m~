@@ -14,7 +14,7 @@ function [ numgrad ] = approxGradient(NN, TrainData, TargData, lambda)
     loss1 = lmsCost(NNTestLow, TrainData, TargData, lambda);
     loss2 = lmsCost(NNTestUp, TrainData, TargData, lambda);
     % Compute Numerical Gradient
-    numgrad(p) = (loss1 - loss2) / (2*e);
+    numgrad(p) = (loss2 - loss1) / (2*e);
     perturb(p) = 0;
     end
 end
