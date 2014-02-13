@@ -1,37 +1,41 @@
-function [J, grad] = costFunc(NN, Y, X, lamda)
-     [J, grad] = leastMeanSquare(NN, Y, X, lamda);
+function [J, grad] = costFunc(NN, Y, X, lambda)
+     [J, grad] = leastMeanSquare(NN, Y, X, lambda);
      %Out(end,:)
 
 end
 
 
-function [J, grad] = leastMeanSquare(NN, Y, X, lamda)
+function [J, grad] = leastMeanSquare(NN, Y, X, lambda)
 %TODO Generalise for shape.    
     
 
 
     m = size(X,1);
-    K = size(Y,2);
+   
     
     W1 = reshapeWeights(NN,1);
     W2 = reshapeWeights(NN,2);
-    
+   
     A1 = [ones(m,1), X];
     Z2 = sigmoid(A1*W1);
     A2 = [ones(m,1), Z2];
     Hx = sigmoid(A2*W2);
+
+    J =   1/2 * sum(sum((Y - Hx).^2)) + lambda/2 * (sum(sum(W1(2:end, :).^2)) + sum(sum(W2(2:end, :).^2)));
     
-    J =   1/(2*m) * sum(sum((Y - Hx).^2));
-    
+
     %Backprop gradient
+    %Regualrisation terms
+    t1 = [zeros(1, size(W1,2)); (lambda * W1(2:end, :))];
+    t2 = [zeros(1, size(W2,2)); (lambda * W2(2:end, :))];
+    
     %delta_k = dE/dOut 
-    delta_k = (Y - Hx) .* Hx .* (ones(size(Hx)) - Hx);
-    grad_W2 =  1/m * A2' * delta_k;
+    delta_k = (-1) * (Y - Hx) .* Hx .* (ones(size(Hx)) - Hx);
+    grad_W2 = (A2' * delta_k + t2);
     
     %delta_k = dE/dHidden
     delta_k = delta_k * W2(2:end, :)' .* (Z2 .* (ones(size(Z2)) - Z2));
-    grad_W1 =  1/m * A1' * delta_k;
-    
+    grad_W1 =  (A1' * delta_k + t1);
     
     grad = [grad_W1(:) ; grad_W2(:)];
 end
@@ -69,8 +73,6 @@ function [J, grad, Out] = crossEntropyCost(NN, Y, X, lambda)
     
     J = 1/m* sum(sum(-Y.*log(Out) - (ones(m,K)-Y).*log(ones(m,K)-Out))) + lambda/(2*m) * (sum(sum(Theta1(:,2:end).^2)) + sum(sum(Theta2(:,2:end).^2)));
     %Regularisation terms
-    t1 = zeros(size(Theta1));
-    t2 = zeros(size(Theta2));
     t1 = [zeros(size(Theta1,1),1), (lambda * Theta1(:,2:end))];
     t2 = [zeros(size(Theta2,1),1), (lambda * Theta2(:,2:end))];
 

@@ -70,8 +70,8 @@ end
 
 
 function W = randomInit(nIn, nOut, seed)
-    const = sqrt(6);
-    epsilon_init = const/(nIn + nOut);
+ 
+    epsilon_init = sqrt(6)/sqrt(nIn + nOut);
     rand('seed', seed);
     W = rand(nIn, nOut) * 2 * epsilon_init - epsilon_init;
 end

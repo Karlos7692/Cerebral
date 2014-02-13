@@ -16,6 +16,7 @@ function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nSt
      BINARY = 1;
      BINARYDEC = 2;
      
+     GENERAL = 'gen';
      TEMPORAL = 'tem';
      SRN = 'srn';
           
@@ -95,10 +96,15 @@ function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nSt
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      %                 State Unit Shape                      %
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-     if (strcmp(type, TEMPORAL))
+     
+     if (strcmp(type, GENERAL))
+         state = [];
+     elseif (strcmp(type, TEMPORAL))
          state = ones(1,nStateVecs).*nInUs;
      elseif (strcmp(type,SRN))
          state = ones(1,nStateVecs).*nHUs;
+     else 
+         state = [];
      end
      %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
      %                Neural Network Seeding                 %
@@ -121,6 +127,8 @@ function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nSt
          TrainData = prepareTNN(NN,TrainData);
      elseif(strcmp(NN.type, SRN))
          TrainData = prepareSRN(NN,TrainData);
+     else
+         
      end
      size(NN.weights)
 end
