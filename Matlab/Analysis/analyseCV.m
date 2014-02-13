@@ -27,11 +27,17 @@ function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
     plot(1:length(CVOut), CVOut, 'r');
     hold on
     plot(1:length(CVOut), CVPred, 'b');
-    plot(1:length(CVOut), CVOut - CVPred, 'g');
     xlabel('Time');
     ylabel('Stock Price');
     title('Cross Validation Comparision');
     hold off
+    
+    
+    figure;
+    plot(1:length(CVOut), CVOut - CVPred, 'g');
+    title('Difference between Actual and Predicted');
+    xlabel('Time');
+    ylabel('Stock Price');
     
     figure;
     title('Actual vs Prediction, (CV Set)');

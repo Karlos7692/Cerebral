@@ -21,12 +21,18 @@ hold off
 plot(1:size(RawOut,1), RawOut, 'r');
 hold on
 plot(1:size(RealPred, 1), RealPred, 'b');
-plot(1:size(RawOut,1), RawOut - RealPred, 'g');
 hold off
-
 title('Stock Pricing Over Time (TrainingSet)');
 xlabel('Time (days)');
 ylabel('Price ($)');
+
+
+figure;
+plot(1:size(RawOut,1), RawOut - RealPred, 'g');
+title('Stock Pricing Difference Over Time');
+xlabel('Time (days)');
+ylabel('Price ($)');
+figure
 
 display('Stock Difference Standard Dev. ($)');
 sd = std(RawOut - RealPred);
