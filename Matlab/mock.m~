@@ -42,9 +42,9 @@ W2 = reshapeWeights(NN,2);
 
 %%============ Gradient Descent ==============
 fprintf('Training using gradient descent\n');
-alpha1 = 0.0004; 
+alpha1 = 0.0004; %0.003 or 0.0003
 alpha2 = 0.002;
-mew = 0.001;  
+mew = 0.001;  %0.01
 [NN2, J_Hist] = gradientDescent(10000, NN2, Y, X, alpha1, mew, lambda);
 [NN3, J_Hist2] = gradientDescent(10000, NN3, Y, X, alpha2, mew, lambda);
 

@@ -32,7 +32,7 @@ plot(1:size(RawOut,1), RawOut - RealPred, 'g');
 title('Stock Pricing Difference Over Time');
 xlabel('Time (days)');
 ylabel('Price ($)');
-figure
+
 
 display('Stock Difference Standard Dev. ($)');
 sd = std(RawOut - RealPred);

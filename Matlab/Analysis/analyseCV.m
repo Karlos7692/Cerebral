@@ -39,11 +39,11 @@ function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
     xlabel('Time');
     ylabel('Stock Price');
     
-    figure;
-    title('Actual vs Prediction, (CV Set)');
+    figure;  
+    scatter(CVPred, CVOut);
+    title('Actual vs Prediction Scatter, (CV Set)');
     xlabel('Prediction ($)');
     ylabel('Actual ($)');
-    scatter(CVPred, CVOut);
     lsline
     stats = regstats(CVOut, CVPred, 'linear', {'beta', 'covb', 'yhat', 'r', 'mse', 'rsquare', 'tstat'});
     display('CV Correlation Coef. ');
@@ -52,13 +52,19 @@ function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
     
     
     figure;
-    title('CV Corrections');
-    xlabel('CV Prediction with Corrections');
-    ylabel('Actual Value');
     plot(1:length(CVOut), CVOut, 'r');
     hold on
     plot(1:length(CVOut), stats.yhat, 'b');
-     plot(1:length(CVOut), CVOut - stats.yhat, 'g');
+    title('CV Corrections');
+    xlabel('CV Prediction with Corrections');
+    ylabel('Actual Value');
+    
+     
+    figure;
+    plot(1:length(CVOut), CVOut - stats.yhat, 'g');
+    title('Actual vs Corrections Difference');
+    ylabel('Difference');
+    xlabel('Time');
     display('CV LR. Correction Std. ');
     sd = std(CVOut - stats.yhat);
     display(sd);
