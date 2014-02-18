@@ -1,48 +1,39 @@
+function [bestThresh] = analyseParticularThreshold(NN, Data, actual)
+%ANALYSETRAININGTHRESHOLD Summary of this function goes here
+%   Detailed explanation goes here
 
-
-
-
-
-
-function Out = predict(NN, Input, type, thresh)
-    %TODO Put in general form and remove unecessary transpositions.
+    threshs = 0.5:0.0005:0.95;
+    threshSds = zeros(size(threshs));
+    tsd = 10000000;
+    i= 1;
     
-    %Theta1 = reshapeWeights(NN,1)';
-    %Theta2 = reshapeWeights(NN,2)';
-      
-    %X = [ones(size(Input,1),1), Input];
-    %H1 = sigmoid(X*Theta1');
-    %H1 = [ones(size(H1,1),1), H1];
-    %Out = sigmoid(H1*Theta2');
+    bpred = predict(NN, Data, 'reg_no_conv_no_thresh');
     
-    
-    
-    nWeightMatracies = length(NN.shape) - 1;
-    Z = Input;
-    for i = 1:nWeightMatracies
-        A = [ones(size(Z,1),1), Z];
-        W = reshapeWeights(NN,i);
-        Z = sigmoid(A*W);
+    for t = threshs
+         pred = convertionControl(NN, 'reg', bpred, t);
+         threshSds(i) = std(actual - pred);
+         if (threshSds(i) < tsd)
+              bestThresh = t;
+              tsd = threshSds(i);
+         end
+         i = i+1;
     end
-     
-    %Z is final output
-    
-    if(strcmp(type,'class'))
-         [dummy, Out] = max(Z, [], 2);
-    elseif(strcmp(type, 'reg'))
-        Out = convertThreshOutput(NN, Z, thresh);
-    elseif(strcmp(type, 'reg_no_thresh'));
-        Out = convertOutput(NN, Z);
-    else
-        Out = Z;
-    end
-    
-    
-    
-    
 end
 
 
+function Out = convertionControl(NN, type, Raw, thresh)
+     if(strcmp(type,'class'))
+         [dummy, Out] = max(Raw, [], 2);
+    elseif(strcmp(type, 'reg'))
+        Out = convertThreshOutput(NN, Raw, thresh);
+    elseif(strcmp(type, 'reg_no_thresh'));
+        Out = convertOutput(NN, Raw);
+    else
+        Out = Raw;
+    end
+
+
+end
 
 
 function Out = convertThreshOutput(NN, Raw, thresh)

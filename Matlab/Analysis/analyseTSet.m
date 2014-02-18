@@ -1,4 +1,4 @@
-function [ stats ] = analyseTSet(J_Hist, NN, TrainData, RawOut)
+function [stats, bestThresh] = analyseTSet(J_Hist, NN, TrainData, RawOut)
 %ANALYSETSET Summary of this function goes here
 %   Detailed explanation goes here
 figure;
@@ -12,11 +12,8 @@ figure;
 %TODO change binary convertions to allow matrix calculations
 %TODO change to allow thresholding
 %TODO create convertion function
-RealPred = zeros(size(RawOut));
-BDPred = predict(NN, TrainData);
-for i = 1:size(RawOut,1)
-    RealPred(i) = bdvecToReal(BDPred(i,:));
-end
+bestThresh = analyseParticularThreshold(NN, TrainData, RawOut);
+RealPred = predict(NN,TrainData,'reg', bestThresh);
 hold off
 plot(1:size(RawOut,1), RawOut, 'r');
 hold on
@@ -29,24 +26,22 @@ ylabel('Price ($)');
 
 figure;
 plot(1:size(RawOut,1), RawOut - RealPred, 'g');
-title('Stock Pricing Difference Over Time');
+title('Stock Pricing Difference Over Time (Training Set)');
 xlabel('Time (days)');
 ylabel('Price ($)');
 
 
-display('Stock Difference Standard Dev. ($)');
 sd = std(RawOut - RealPred);
-display(sd);
+fprintf('Training Set: Stock Difference Standard Dev. $%f\n',sd);
 
 figure;
 scatter(RawOut, RealPred);
 lsline;
 stats = regstats(RawOut, RealPred, 'linear', {'beta', 'covb', 'yhat', 'r', 'mse', 'rsquare', 'tstat'});
-title('Point Correlation');
+title('Point Correlation (Training Set)');
 xlabel('Predicted Value ($)');
 ylabel('Actual Value ($)');
-display('Correlation Coef. ');
 r = sqrt(stats.rsquare);
-display(r);
+fprintf('Correlation Coef: %f\n\n', r);
 end
 

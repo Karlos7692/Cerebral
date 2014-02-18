@@ -1,10 +1,10 @@
 function [J10, J100] = MockImageRec(nntype, nStatevecs, mom)
 %UNTITLED2 Summary of this function goes here
 %   Detailed explanation goes here
-    maxIter = 10;
+    maxIter = 20;
     
-    J10LR = 0.05:0.05:(maxIter*0.05);
-    J100LR = 0.05:0.05:(maxIter*0.05);
+    J10LR = 0.0003:0.0003:(maxIter*0.0003);
+    J100LR = 0.00003:0.00003:(maxIter*0.00003);
     
     TData = load('MNIST.mat');
     X = TData.X;

@@ -1,5 +1,5 @@
 function [J, grad] = costFunc(NN, Y, X, lambda)
-     [J, grad] = leastMeanSquare(NN, Y, X, lambda);
+     [J, grad] = leastMeanSquareTemp(NN, Y, X, lambda);
      %Out(end,:)
 
 end
@@ -39,6 +39,61 @@ function [J, grad] = leastMeanSquare(NN, Y, X, lambda)
     
     grad = [grad_W1(:) ; grad_W2(:)];
 end
+
+
+
+function [J, grad] = leastMeanSquareTemp(NN, Y, X, lambda)
+  
+    
+    m = size(X,1);
+    nWeightMatracies = length(NN.shape) - 1;
+    nLayers = length(NN.shape);
+    %Forward Pass
+    %Get Weights Matrix Array
+    %Get As, Zs and Hx
+    %Get Reglarisation cost
+    %Get Regualrisation terms
+    %Collect sigmoid gradients
+    Weights = cell(1,nWeightMatracies);     %nWs
+    Zs = cell(1,nLayers);                   %nZs = nWs
+    As = cell(1,nWeightMatracies);          %nAs = nWs
+    ts = cell(1,nWeightMatracies);          %nts = nWs
+    Zs{1} = X;
+    reg = 0;
+    sig_grads = cell(1,nWeightMatracies);
+    for i = 1:nWeightMatracies
+        Weights{i} = reshapeWeights(NN,i);                                       %Get Weights
+        As{i} = [ones(m,1), Zs{i}];                                              %Get As
+        Zs{i+1} = sigmoid(As{i}*Weights{i});                                     %Get Zs
+        reg = reg + (sum(sum(Weights{i}(2:end, :).^2)));                         %Get regularisation cost
+        ts{i} = [zeros(1, size(Weights{i},2)); (lambda * Weights{i}(2:end, :))]; %Get regularisation terms
+        sig_grads{i} = (Zs{i+1} .* (ones(size(Zs{i+1})) - Zs{i+1}));             %Collect sigmoid gradients (starting layer 2)
+    end
+    reg = lambda/2 * reg;
+    outLayer = length(NN.shape);
+    Hx = Zs{outLayer};
+    
+    %Cost Function
+    J =   1/2 * sum(sum((Y - Hx).^2)) + reg;
+    
+    %Backprop gradient
+    grad = zeros(size(NN.weights));                                 %Preallocate grad vector
+    lastWeight = numel(NN.weights);                                 %Last weight position for current layer
+    delta_k = (-1) * (Y - Hx) .* Hx .* (ones(size(Hx)) - Hx);       %Error signal gradient for outer layer
+    
+    for i = length(Weights):-1:2                                    %Go backwards from layer n-1:n to 1:2 
+        grad_Wi = (As{i}' * delta_k + ts{i});
+        firstWeight = lastWeight - numel(grad_Wi) + 1;              %Get first weight position
+        grad(firstWeight:lastWeight) = grad_Wi(:);                  %Update Gradient for l-1:l
+        lastWeight = lastWeight - numel(grad_Wi);                   %Update Last  Weight Position
+        delta_k = delta_k * Weights{i}(2:end,:)' .* sig_grads{i-1}; %Update Error Signal
+    end
+    %Update first layer - second layer weights
+    grad_W1to2 = (As{1}' * delta_k + ts{1});
+    grad(1:lastWeight) = grad_W1to2(:);
+ 
+end
+
 
 
 

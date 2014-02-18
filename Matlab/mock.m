@@ -93,8 +93,18 @@ pred = predict(NN,TrainData);
 fprintf('\nTraining Set Accuracy A-Op: %f\n', mean(double(pred == y)) * 100);
 
 pred2 = predict(NN2,TrainData);
-[dummy, pred2] = max(pred2, [], 2);
 fprintf('\nTraining Set Accuracy G-Desc: %f\n', mean(double(pred2 == y)) * 100);
+
+
+
+
+
+
+
+
+
+
+
 
 
 

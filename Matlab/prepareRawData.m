@@ -13,7 +13,7 @@ function [RawIn, RawOut, CVIn, CVOut] = prepareRawData(Data, outvec, cvsize)
     RawOut = flipud(Data(:,outvec));
     RawOut = RawOut(2:end-cvsize+1,:);
    
-    [mu scale] = scaleParam(RawIn);
+    [mu, scale] = scaleParam(RawIn);
     RawIn = featureScale(RawIn, mu, scale);
     CVIn = featureScale(CVIn, mu, scale);
     

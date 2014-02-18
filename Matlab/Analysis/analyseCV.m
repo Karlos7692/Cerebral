@@ -1,4 +1,4 @@
-function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
+function [CVPred, stats] = analyseCV(NN, RawIn, RawOut, TrainData,  CVIn, CVOut, threshtype)
 %CVANALYSER Summary of this function goes here
 %   Detailed explanation goes here
     hold off;
@@ -10,19 +10,13 @@ function [CVPred, stats] = analyseCV(NN, RawIn, CVIn, CVOut)
         Total = prepareTNN(NN, Total);
     end
     
-    CVPred = zeros(size(CVOut));
-    TotalPred = predict(NN, Total);
+    %Best Thresh hold for training data.
+    [bestThresh] = analyseParticularThreshold(NN, TrainData, RawOut);
+    TotalPred = predict(NN, Total, threshtype, bestThresh);
     
-    CVBPreds = TotalPred(end-cvsize+1:end, :);
+    CVPred = TotalPred(end-cvsize+1:end, :);
     
-    
-    %TODO change binary convertions to allow matrix calculations
-    %TODO change to allow thresholding
-    %TODO create convertion function
-    for i = 1:size(CVOut,1)
-        CVPred(i) = bdvecToReal(CVBPreds(i,:));
-    end
-    
+
     %Plot Predicted values overlayed Actual Values
     plot(1:length(CVOut), CVOut, 'r');
     hold on
