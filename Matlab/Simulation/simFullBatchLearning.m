@@ -20,10 +20,12 @@ Pred = zeros(size(CVOut));
 
 
 %Should be one value we know in the future
-fprintf('                   Real,    Pred,    Diff\n '); 
+fprintf('************ Simulation Begin ***************\n'); 
+
 for i = 1:length(CVOut)-1
 
     %Unpack Parameters and build
+    fprintf('Neural Network Weights\n');
     [NN TrainData TargData] = buildNeuralNetwork(RawInTemp, RawOutTemp, NNParams.hidden, NNParams.nStateVecs, NNParams.type, NNParams.encoding);
     [NN, J_Hist] = gradientDescent(LearningParams.maxIter, NN, TargData, TrainData, LearningParams.lr, LearningParams.momentum, LearningParams.reg);
     
@@ -41,10 +43,11 @@ for i = 1:length(CVOut)-1
     Pred(i) = predict(NN, Input, 'reg', thresh);
     
     %Print the prediction values, reals values and difference
-    fprintf('Prediction Day: %d, %f, %f, %f', i, CVOut(i), Pred(i), (CVOut(i) - Pred(i))); 
+    fprintf('                 Day,   Real,    Pred,    Diff\n '); 
+    fprintf('Prediction Day: %d,    %f, %f, %f\n', i, CVOut(i), Pred(i), (CVOut(i) - Pred(i))); 
     
     %Rollover 1 day.
-    [RawInTemp, RawOutTemp, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut] = rollover(RawIn, RawOut, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut)
+    [RawInTemp, RawOutTemp, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut] = rollover(RawIn, RawOut, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut);
     
     
 end
