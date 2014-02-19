@@ -40,7 +40,7 @@ for i = 1:length(CVOut)-1
     %Get last feature values
     Input = Input(end,:);
     %Get Prediction
-    Pred(i) = predict(NN, Input, 'reg', thresh);
+    Pred(i) = predict(NN, Input, 'reg_no_thresh');
     
     %Print the prediction values, reals values and difference
     fprintf('                 Day,   Real,    Pred,    Diff\n '); 
