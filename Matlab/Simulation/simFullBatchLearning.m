@@ -30,8 +30,8 @@ for i = 1:length(CVOut)-1
     [NN, J_Hist] = gradientDescent(LearningParams.maxIter, NN, TargData, TrainData, LearningParams.lr, LearningParams.momentum, LearningParams.reg);
     
     %Analyse Training set Fit
-    [dummy,thresh] = analyseTSet(J_Hist, NN, TrainData, RawOut);
-    
+
+    [dummy,thresh] = analyseTSet(J_Hist, NN, TrainData, RawOut, NNParams.threshType);
     
     %Predict for next day
     Input = [RawInTemp ; CVInTemp(1, :)]; 
@@ -40,7 +40,7 @@ for i = 1:length(CVOut)-1
     %Get last feature values
     Input = Input(end,:);
     %Get Prediction
-    Pred(i) = predict(NN, Input, 'reg_no_thresh');
+    Pred(i) = predict(NN, Input, NNParams.threshType, thresh);
     
     %Print the prediction values, reals values and difference
     fprintf('                 Day,   Real,    Pred,    Diff\n '); 
@@ -51,7 +51,7 @@ for i = 1:length(CVOut)-1
     
     
 end
-[stats] = analyseCVSim(CVPred, CVOut);
+[stats] = analyseCVSim(Pred, CVOut);
 PDiff = CVOut - Pred;
 Corr = sqrt(stats.rsquare);
 Psd = std(CVOut - Pred);

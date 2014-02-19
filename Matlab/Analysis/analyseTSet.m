@@ -1,4 +1,4 @@
-function [stats, bestThresh] = analyseTSet(J_Hist, NN, TrainData, RawOut)
+function [stats, bestThresh] = analyseTSet(J_Hist, NN, TrainData, RawOut, threshType)
 %ANALYSETSET Summary of this function goes here
 %   Detailed explanation goes here
 figure;
@@ -6,14 +6,17 @@ plot(1:length(J_Hist), J_Hist);
 title('Learning Costs Over Time');
 xlabel('Iterations');
 ylabel('Cost');
-
+fprintf('Final Cost: %f\n', J_Hist(end));
 figure;
 
 %TODO change binary convertions to allow matrix calculations
 %TODO change to allow thresholding
 %TODO create convertion function
-bestThresh = analyseParticularThreshold(NN, TrainData, RawOut);
-RealPred = predict(NN,TrainData,'reg', bestThresh);
+bestThresh = 0;
+if (~strcmp(threshType, 'reg_no_thresh'))
+    bestThresh = analyseParticularThreshold(NN, TrainData, RawOut);
+end
+RealPred = predict(NN,TrainData, threshType, bestThresh);
 hold off
 plot(1:size(RawOut,1), RawOut, 'r');
 hold on
