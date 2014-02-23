@@ -34,7 +34,8 @@ function [J, grad] = leastMeanSquare(NN, Y, X, lambda)
     grad_W2 = (A2' * delta_k + t2);
     
     %delta_k = dE/dHidden
-    delta_k = delta_k * W2(2:end, :)' .* (Z2 .* (ones(size(Z2)) - Z2));
+   
+    delta_k = delta_k * W2(2:end,:)'.* (Z2 .* (ones(size(Z2)) - Z2));
     grad_W1 =  (A1' * delta_k + t1);
     
     grad = [grad_W1(:) ; grad_W2(:)];
