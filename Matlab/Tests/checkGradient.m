@@ -5,7 +5,7 @@ function [diff, J, grad] = checkGradient(NN, Y, X, lambda)
     %Minus gradient, already added.
     approx = approxGradient(NN, X, Y, lambda);
     
-    
+
     %Manual Gradient checking.
     %disp([approx grad]);
     %fprintf(['The above two columns you get should be very similar.\n' ...

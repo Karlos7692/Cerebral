@@ -50,11 +50,11 @@ function [J, grad] = leastMeanSquareTemp(NN, Y, X, lambda)
     nWeightMatracies = length(NN.shape) - 1;
     nLayers = length(NN.shape);
     %Forward Pass
-    %Get Weights Matrix Array
-    %Get As, Zs and Hx
-    %Get Reglarisation cost
-    %Get Regualrisation terms
-    %Collect sigmoid gradients
+        %Get Weights Matrix Array
+        %Get As, Zs and Hx
+        %Get Reglarisation cost
+        %Get Regualrisation terms
+        %Collect sigmoid gradients
     Weights = cell(1,nWeightMatracies);     %nWs
     Zs = cell(1,nLayers);                   %nZs = nWs
     As = cell(1,nWeightMatracies);          %nAs = nWs
@@ -80,6 +80,8 @@ function [J, grad] = leastMeanSquareTemp(NN, Y, X, lambda)
     %Backprop gradient
     grad = zeros(size(NN.weights));                                 %Preallocate grad vector
     lastWeight = numel(NN.weights);                                 %Last weight position for current layer
+    
+    
     delta_k = (-1) * (Y - Hx) .* Hx .* (ones(size(Hx)) - Hx);       %Error signal gradient for outer layer
     
     for i = length(Weights):-1:2                                    %Go backwards from layer n-1:n to 1:2 
@@ -92,7 +94,7 @@ function [J, grad] = leastMeanSquareTemp(NN, Y, X, lambda)
     %Update first layer - second layer weights
     grad_W1to2 = (As{1}' * delta_k + ts{1});
     grad(1:lastWeight) = grad_W1to2(:);
- 
+    
 end
 
 

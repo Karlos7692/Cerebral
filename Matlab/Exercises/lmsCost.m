@@ -39,6 +39,7 @@ function [J grad] = lmsCost( nn_params, ...
     delta_k = delta_k * W2(:, 2:end) .* (Z2 .* (ones(size(Z2)) - Z2));
     grad_W1 =  (delta_k'*A1 + t1);
     
+
     grad = [grad_W1(:) ; grad_W2(:)];
 
 end

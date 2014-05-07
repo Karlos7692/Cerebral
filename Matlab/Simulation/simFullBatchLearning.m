@@ -1,4 +1,4 @@
-function [Pred, PDiff, Corr, Psd] = simFullBatchLearning(NNParams, LearningParams, TDataParams);
+function [Pred, PDiff, Corr, Psd] = simFullBatchLearning(NNParams, LearningParams, TDataParams)
 %SIMBATCH Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -47,7 +47,7 @@ for i = 1:length(CVOut)-1
     fprintf('Prediction Day: %d,    %f, %f, %f\n', i, CVOut(i), Pred(i), (CVOut(i) - Pred(i))); 
     
     %Rollover 1 day.
-    [RawInTemp, RawOutTemp, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut] = rollover(RawIn, RawOut, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut);
+    [RawInTemp, RawOutTemp, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut] = rollover(RawInTemp, RawOutTemp, CVInTemp, CVOutTemp, DroppedRawIn, DroppedRawOut);
     
     
 end

@@ -15,11 +15,13 @@ function [NN, J_Hist] = gradientDescent(maxIter, NN, Y, X, alpha, mew, lambda)
         
         [J, grad] = costFunc(NN, Y, X, lambda);
         
+        
         %Add momentum
-        grad = mew * prevGrad + (1 - mew) * grad;
+        mom = mew * prevGrad;
+        
         
         %update weights
-        NN.weights = NN.weights - alpha * grad;
+        NN.weights = NN.weights - alpha*grad + mom;
         
         %update momentum
         %prevGrad = grad;
