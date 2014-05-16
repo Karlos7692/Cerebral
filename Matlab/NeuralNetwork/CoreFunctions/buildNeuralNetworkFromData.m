@@ -1,15 +1,8 @@
-
-
-
-
-
-
-
 %Encoding Binary: 1
 %Encoding Binary Decimal: 2
 
 
-function [NN TrainData TargData] = buildNeuralNetwork(RawIn, RawOut, hidden, nStateVecs, type, encoding)
+function [NN TrainData TargData] = buildNeuralNetworkFromData(RawIn, RawOut, hidden, nStateVecs, type, encoding)
      
      %TODO change prepareTNN nicer code.
      

@@ -1,7 +1,9 @@
-function [diff, J, grad] = checkGradient(NN, Y, X, lambda)
-
+function [diff, E, grad] = checkGradient(NN, Y, X, lambda)
+    %TODO, CHANGE APPROXGRADIENT FOR Other Cost functions as well.
     X = maintainNN(NN,X);
-    [J, grad] = costFunc(NN, Y, X, lambda);
+    [Weights, As, ts, Sig_grads, Hx, reg ] = forwardPass(NN, X, lambda);            
+    [E, gradconst] = costFunction(Y, Hx, reg, 'lms');
+    [ grad ] = backwardPass(NN, Y, Hx, Weights, As, Sig_grads, ts, gradconst);
     %Minus gradient, already added.
     approx = approxGradient(NN, X, Y, lambda);
     

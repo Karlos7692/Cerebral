@@ -4,7 +4,7 @@
 
 
 
-function Out = predict(NN, Input, type, thresh)
+function Out = predict(NN, Input)
     %TODO Put in general form and remove unecessary transpositions.
     
     %Theta1 = reshapeWeights(NN,1)';
@@ -24,18 +24,21 @@ function Out = predict(NN, Input, type, thresh)
         W = reshapeWeights(NN,i);
         Z = sigmoid(A*W);
     end
-     
+    Out = Z;
+    
+    
+    %TODO Put in seperate function.
     %Z is final output
     
-    if(strcmp(type,'class'))
-         [dummy, Out] = max(Z, [], 2);
-    elseif(strcmp(type, 'reg'))
-        Out = convertThreshOutput(NN, Z, thresh);
-    elseif(strcmp(type, 'reg_no_thresh'));
-        Out = convertOutput(NN, Z);
-    else
-        Out = Z;
-    end
+   % if(strcmp(type,'class'))
+   %      [dummy, Out] = max(Z, [], 2);
+   % elseif(strcmp(type, 'reg'))
+   %     Out = convertThreshOutput(NN, Z, thresh);
+   % elseif(strcmp(type, 'reg_no_thresh'));
+   %     Out = convertOutput(NN, Z);
+   % else
+   %     Out = Z;
+   % end
     
     
     
