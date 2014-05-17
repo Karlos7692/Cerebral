@@ -1,10 +1,10 @@
 function [ CNN, TrainData, TargDatas ] = buildConvolutionalNetwork(RawIn, RawOuts, NNParamsList, ConvolutionalParams)
 %BUILDCONVOLUTIONALNETWORK Summary of this function goes here
 %   Detailed explanation goes here
-    structure = ConvolutionalParams.structure
-    nComponents = length(structure)
-    ComponentConnections = ConvolutionalParams.ComponentConnections
-    
+    structure = ConvolutionalParams.structure;
+    nComponents = length(structure);
+    ComponentConnections = ConvolutionalParams.ComponentConnections;
+    InvertedConnections = ConvolutionalParams.InvertedConnections;
     %Transform RawIn into correct format to meet requirements for Component 1:
     %TODO Generalise
     encoding = NNParamsList{1}.encoding;                       

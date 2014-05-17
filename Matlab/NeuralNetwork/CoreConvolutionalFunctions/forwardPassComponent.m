@@ -9,7 +9,8 @@ function [ WeightsCell, AsCell, tsCell, Sig_gradsCell, HxCell, regCell ] = forwa
     HxCell = cell(length(CNN.Component{index}), 1);
     regCell = cell(length(CNN.Component{index}), 1);
     
-    XSplits = transform(CNN.ComponentConnections{index}, X, index);
+    % X is a cell.
+    XSplits = transform(CNN.ComponentConnections{index}, X);
     for j = 1:length(CNN.Component{index})
         
         [Weights, As, ts, Sig_grads, Hx, reg ] = forwardPass(CNN.Components{index}{j}, XSplits{j}, lambda);
