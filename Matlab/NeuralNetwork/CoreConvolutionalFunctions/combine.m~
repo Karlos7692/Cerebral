@@ -25,14 +25,24 @@ function [ CombinationMatrix ] = combine(ComponentMatrix, Ks)
     lstvec = max(max(ComponentMatrix));
     nNNs = size(ComponentMatrix,2);
     CombinationMatrix = zeros(size(K,1), lstvec);
-    for i = 1:size(ComponentMatrix,1)
-        for j = 1:size(ComponentMatrix,2)           
-            vecPos = ComponentMatrix(i,j);
-            kvecPos = (j - 1)*nNNs + i;    %vecPos equivalent vector is kvePos
-            kvec = K(:,kvecPos);         
-            CombinationMatrix(:,vecPos) = CombinationMatrix(:,vecPos) + kvec;
+    C = size(ComponentMatrix)
+    Ks
+    pause;
+    %for i = 1:size(ComponentMatrix,1)
+    %    for j = 1:size(ComponentMatrix,2)           
+    %        vecPos = ComponentMatrix(i,j);
+    %        kvecPos = (j - 1)*nNNs + i    %vecPos equivalent vector is kvePos
+    %        kvec = K(:,kvecPos);         
+    %        CombinationMatrix(:,vecPos) = CombinationMatrix(:,vecPos) + kvec;
+    %    end
+    %end
+    
+    for nn = 1:size(ComponentMatrix,2)
+        inDk = zeros(size(Ks{nn},1),1);
+        for vec = size(Ks{nn},2)
+            inDk = inDk
+            
         end
     end
-
 end
 

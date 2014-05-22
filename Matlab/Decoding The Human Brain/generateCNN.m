@@ -19,5 +19,8 @@ function [ CNN ] = generateCNN(X)
      [ Component ] = buildComponent(100, 1, 1, ComponentMatrix);
      [ CNN ] = appendComponent(CNN, Component, ComponentMatrix);
      
+     %Final Data Transformation after CNN: Output
+     [ CNN ] = appendOutputMatrix(CNN, 1);
+     
 end
 

@@ -1,4 +1,4 @@
-function [ WeightsCollection, AsCollection, tsCollection, Sig_gradsCollection, HxCell, reg] ...
+function [ WeightsCollection, AsCollection, tsCollection, Sig_gradsCollection, HxCollection, reg] ...
      = forwardPassComponents(CNN, XCell, lambda)
 %FORWARDPASSCOMPONENTS Summary of this function goes here
 %   Detailed explanation goes here
@@ -8,11 +8,11 @@ function [ WeightsCollection, AsCollection, tsCollection, Sig_gradsCollection, H
     AsCollection = cell(length(CNN.structure)-1, 1);
     tsCollection = cell(length(CNN.structure)-1, 1);
     Sig_gradsCollection = cell(length(CNN.structure)-1, 1);
-    
+    HxCollection = cell(length(CNN.structure)-1, 1);
     %X is the cell pre-transformed from last Component. The Original input 
     %is of type cell.
     
-    %X_t+1 and regCell is used for calculating Convolutional Cost, thus we do
+    %regCell is used for calculating Convolutional Cost, thus we do
     %not need to collect them. We only return the value.
     %HxCell = X_end
     reg = 0;
@@ -22,12 +22,12 @@ function [ WeightsCollection, AsCollection, tsCollection, Sig_gradsCollection, H
        AsCollection{i} = AsCell;
        tsCollection{i} = tsCell;
        Sig_gradsCollection{i} = Sig_gradsCell;
-       
+       HxCollection{i} = XCell;
        reg = addRegCell(reg, regCell);
        
     end
     
-    HxCell = XCell;
+
     
 
 end
