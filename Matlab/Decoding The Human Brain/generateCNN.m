@@ -10,7 +10,7 @@ function [ CNN ] = generateCNN(X)
      
      %1st Tier Neural Network
      [ ComponentMatrix ] = generateComponentMatrix(rows, cols);
-     [ Component ] = buildComponent(20, 1, 1, ComponentMatrix);
+     [ Component ] = buildComponent(30, 1, 1, ComponentMatrix);
      [ CNN ] = appendComponent(CNN, Component, ComponentMatrix);
      
      

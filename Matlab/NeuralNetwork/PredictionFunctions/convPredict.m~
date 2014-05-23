@@ -1,0 +1,7 @@
+function [ output_args ] = convPredict( CNN, Input )
+%CONVPREDICT Summary of this function goes here
+%   Detailed explanation goes here
+    for i=1:length(CNN.structure)
+
+end
+

@@ -1,4 +1,4 @@
-function [RawIn] = prepareRawData(X)
+function [RawIn, mu, scale] = prepareRawData(X)
 %PREPARERAWDATA Summary of this function goes here
 %   ComponentMatrix is used by the Convolutional Neural Network to split
 %   the Features between the initial Component Neural Networks.
@@ -11,6 +11,8 @@ function [RawIn] = prepareRawData(X)
         RawTemp(i,:) = feats;
     end
     
+    [ mu, scale ] = scaleParam( RawTemp );
+    RawTemp = featureScale(RawTemp, mu, scale);
     %Put in cell type consistent types.
     RawIn = cell(1,1);
     RawIn{1} = RawTemp;
