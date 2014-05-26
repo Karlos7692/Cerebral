@@ -29,19 +29,25 @@ function [passed, failed, totalTests, GradsCollection, ApproxCollection] = check
         for cel = 1:length(CNN.Components{com})
             lst = lst + length(GradsCollection{com}{cel});
             gradvec(fst:lst) = GradsCollection{com}{cel};
-            approxvec(fst:lst) = ApproxCollection{com}{cel};
+            approxvec = ApproxCollection{com}{cel};
             fst = lst + 1;
+            
+            
             
         end
     end
     
     
     diff = norm(approxvec-gradvec)/norm(approxvec+gradvec);
-    if diff < 1e-8
+    if diff < 1e-7
          fprintf('Test Passed! Component: %d, NN: %d, Rel Diff: %e\n', com, cel, diff);
-    else
-         fprintf('Test Failed! Component: %d, NN: %d, Rel Diff: %e\n', com, cel, diff);
-    end
-     
+                passed(com) = passed(com) + 1;
+            else
+                fprintf('Test Failed! Component: %d, NN: %d, Rel Diff: %e\n', com, cel, diff);
+                failed(com) = failed(com) + 1;
+            end
+    
+    
+    
 end
 

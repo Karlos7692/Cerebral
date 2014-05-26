@@ -13,6 +13,7 @@ function [ numgrad ] = approxGradient(NN, TrainData, TargData, lambda)
     NNTestUp.weights = NN.weights + perturb;
     HxL = predict(NNTestLow, TrainData);
     HxU = predict(NNTestUp, TrainData);
+    
     %TODO Get regularisation:
     regL =  regularisationCost(NNTestLow, lambda);
     regU =  regularisationCost(NNTestUp, lambda);

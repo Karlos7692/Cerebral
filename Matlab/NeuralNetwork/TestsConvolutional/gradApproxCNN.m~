@@ -16,6 +16,17 @@ function [ ApproxCollection ] = gradApproxCNN( CNN, Y, XCell, lambda, costType)
             peturb = zeros(size(CNN.Components{com}{cel}.weights));
             for p = 1:length(CNN.Components{com}{cel}.weights) %p - NN.weights position iterator
                 
+                %Test Setup
+                NN = NeuralNetwork([100, 30, 1, 100, 1], [], 1, 1, 'gen', [484985092 580606780 939828989 254076024]);
+                NNHighTest = NN;
+                NNLowTest = NN;
+                c1len = 101*30 + 31;
+                pos = (com - 1)*c1len + p;
+                NNHighTest.weights(pos) = NNHighTest.weights(pos) + e;
+
+                NNLowTest.weights(pos) = NNLowTest.weights(pos) - e;
+                
+                
                 
                 %Create High and Low CNN
                 CNNHigh = CNN; %Copies CNN;
@@ -36,6 +47,7 @@ function [ ApproxCollection ] = gradApproxCNN( CNN, Y, XCell, lambda, costType)
                 CNNHigh.Components{com}{cel} = NNHigh;
                 CNNLow.Components{com}{cel} = NNLow;  %hi juttie waz here
                     
+              
                     
                 %Get Prediction 
                 [ HxCellHigh ] = convPredict( CNNHigh, XCell );

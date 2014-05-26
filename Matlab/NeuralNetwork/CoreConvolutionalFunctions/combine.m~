@@ -20,6 +20,12 @@ function [ CombinationMatrix ] = combine(ComponentMatrix, Ks)
         fst = lst + 1;
     end
     
+    %Test 1: K = Ks{1}
+    size(K)
+    ComponentMatrix
+    Test1 = find(K ~= Ks{1})
+    pause;
+  
     %Add all vectors with the same position in the ComponentMatrix
     %Pre-Allocate Size of Combination Matrix
     lstvec = max(max(ComponentMatrix));
@@ -29,11 +35,12 @@ function [ CombinationMatrix ] = combine(ComponentMatrix, Ks)
     for i = 1:nNNs
         for j = 1:size(ComponentMatrix,1)
             neuron = ComponentMatrix(j,i);
-            errPos = (i-1)*size(ComponentMatrix,1) + j;
-            errorvec = K(:,errPos);
+            errorvec = sum(Ks{i},2);       %Sum all error vectors * weigts
             CombinationMatrix(:,neuron) = CombinationMatrix(:,neuron) + errorvec;
         end
     end
 
+    
+    %Test 2: Alll Nee input neurons should have the sum of all DKs.
 end
 

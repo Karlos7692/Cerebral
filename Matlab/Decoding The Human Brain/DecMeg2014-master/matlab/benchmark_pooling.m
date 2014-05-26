@@ -21,7 +21,7 @@ ids_test = [];
 % Crating the trainset. (Please specify the absolute path for the train data)
 disp('Creating the trainset.');
 for i = 1 : length(subjects_train)
-    path = '.../data/';  % Specify absolute path
+    path = '/Users/Karl/Projects/Dec2014Data/Data/';  % Specify absolute path
     filename = sprintf(strcat(path,'train_subject%02d.mat'),subjects_train(i));
     disp(strcat('Loading ',filename));
     data = load(filename);
@@ -42,7 +42,7 @@ end
 disp('Creating the testset.');
 subjects_test = 17:23;
 for i = 1 : length(subjects_test)
-    path = '.../data/'; % Specify absolute path
+    path = '/Users/Karl/Projects/Dec2014Data/Test/'; % Specify absolute path
     filename = sprintf(strcat(path,'test_subject%02d.mat'),subjects_test(i));
     disp(strcat('Loading ',filename));
     data = load(filename);

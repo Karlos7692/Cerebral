@@ -1,4 +1,4 @@
-function [diff, E, grad] = checkGradient(NN, Y, X, lambda)
+function [diff, E, grad, approx] = checkGradient(NN, Y, X, lambda)
     %TODO, CHANGE APPROXGRADIENT FOR Other Cost functions as well.
     X = maintainNN(NN,X);
     [Weights, As, ts, Sig_grads, Hx, reg ] = forwardPass(NN, X, lambda);            

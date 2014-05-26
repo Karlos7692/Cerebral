@@ -1,7 +1,7 @@
 function [ XSplits ] = transform(ComponentMatrix, Xs)
 %TRANSFORMDATA Summary of this function goes here
 %   Detailed explanation goes here
-
+    
     %Concat Xs:
     flen = 0;
     for i = 1:size(Xs, 2)
@@ -24,6 +24,5 @@ function [ XSplits ] = transform(ComponentMatrix, Xs)
 
         XSplits{i} = XSplit;
     end
-
 end
 
