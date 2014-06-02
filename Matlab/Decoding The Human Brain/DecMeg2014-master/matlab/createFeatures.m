@@ -11,7 +11,7 @@ disp('2D Reshaping: concatenating all 306 timeseries.');
 features = single(zeros(size(XX,1),size(XX,2)*size(XX,3)));
 for i = 1 : size(XX,1)
     temp = squeeze(XX(i,:,:));
-    features(i,:) = temp(:); 
+    features(i,:) = temp(:);
 end
 size(features,2)
 disp('Features Normalization.');

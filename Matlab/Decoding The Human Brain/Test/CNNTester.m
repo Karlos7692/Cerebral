@@ -4,6 +4,6 @@ function [RawIn, Y, CNN, mu, scale] = CNNTester(X, y, nNNs, nTrials, nIns)
    RawInTemp = X(1:nTrials ,1:nNNs ,end-nIns+1:end);
    Y= double(y(1:nTrials));
    [RawIn, mu, scale] = prepareRawData(RawInTemp);
-   [ CNN ] = generateCNN(RawInTemp);
+   [ CNN ] = generateCNN(size(RawInTemp,3),size(RawInTemp, 2));
 end
 
