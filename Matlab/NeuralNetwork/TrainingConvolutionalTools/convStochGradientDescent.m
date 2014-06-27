@@ -79,7 +79,7 @@ end
 function [CNN] = subtractGradientAddMomentum(CNN, GradsCollection, MomCollection)
      for i = 1:length(CNN.Components)     %Collection
          for j = 1:length(CNN.Components{i})  %Cell
-             CNN.Components{i}{j}.weights = CNN.Components{i}{j}.weights - GradsCollection{i}{j} + MomCollection{i}{j};
+             CNN.Components{i}{j}.weights = CNN.Components{i}{j}.weights - GradsCollection{i}{j} - MomCollection{i}{j};
          end
      end
   

@@ -8,7 +8,7 @@ function [NN, E_Hist] = gradientDescent(maxIter, costType, NN, Y, X, alpha, mew,
         
         [Weights, As, ts, Sig_grads, Hx, reg ] = forwardPass(NN, X, lambda);            
         [E, gradconst] = costFunction(Y, Hx, reg, costType);
-        [ grad ] = backwardPass(NN, Y, Hx, Weights, As, Sig_grads, ts, gradconst);
+        [grad] = backwardPass( NN, Y, Hx, Weights, As, Sig_grads, ts, gradconst );
         
         
         %Add momentum
@@ -16,7 +16,7 @@ function [NN, E_Hist] = gradientDescent(maxIter, costType, NN, Y, X, alpha, mew,
         
         
         %update weights
-        NN.weights = NN.weights - alpha*grad + mom;
+        NN.weights = NN.weights - alpha*grad - mom;
         
         %update momentum
         prevGrad = alpha*grad;

@@ -46,7 +46,7 @@ function [ NN, E_Hist] = stocGradientDescent(maxIter, batchSize, costType, NN, Y
         
         
             %update weights
-            NN.weights = NN.weights - alpha*grad + mom;
+            NN.weights = NN.weights - alpha*grad - mom;
         
             %update momentum
             prevGrad = alpha*grad;

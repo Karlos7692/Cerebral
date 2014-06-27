@@ -1,12 +1,13 @@
-function [ Distributions ] = bagging(X, Y, nDists)
+function [ Xs, Ys ] = bagging(X, Y, nDists)
 %BAGGING Summary of this function goes here
 %   Detailed explanation goes here
-    Distributions = cell(nDists,2);
+    Xs = cell(nDists,1);
+    Ys = cell(nDists,1);
     for i = 1:nDists
         m = size(X,1);
         dist = randi([1,m],m,1);
-        Distributions{i,1} = X(dist,:);
-        Distributions{i,2} = Y(dist,:);
+        Xs{i} = X(dist,:);
+        Ys{i} = Y(dist,:);
     end
 
 end
